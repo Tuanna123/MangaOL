@@ -1,0 +1,14 @@
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\MangaOL.csprojResolveAssemblyReference.cache
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\App.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\MainPage.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\UserControls\Mdl2.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\UserControls\UcDownload.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\UserControls\UcImage.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\UserControls\UcImageData.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\Views\DetailPage.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\Views\SetingPage.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\Views\SlapScreen.g.cs
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\MangaOL.g.resources
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\MangaOL.Resources.AppResources.resources
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\MangaOL.Resources.AppResources.vi.resources
+E:\WIPHONE\MangaOL\MangaOL\obj\x86\Release\MangaOL.csproj.GenerateResource.Cache

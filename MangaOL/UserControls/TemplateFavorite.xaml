@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="MangaOL.UserControls.TemplateFavorite"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:uc="clr-namespace:MangaOL.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="280" d:DesignWidth="480">
+    <Border   Background="{StaticResource BackgroundItem}"  Margin="12 3 12 3"
+BorderThickness="0,0,0,1">
+        <Grid x:Name="Container">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="txtIconStatus" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{Binding ElementName=btnNotication,Path=Icon}" Grid.ColumnSpan="2" FontSize="60" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.07" Margin="10 0 14 14"/>
+            <Grid Tap="GridItem_Tap" Grid.Column="0" >
+                <Grid.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Grid.RowSpan="2" Source="/Assets/Images/NoImage.png" Width="130" Height="130" Margin="10"/>
+                <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding UriCover}" Stretch="UniformToFill" Width="130" Height="180"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+                <Grid Grid.Column="1" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 10 0 0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <!--{Binding NameManga}-->
+                    <TextBlock x:Name="txtName" Grid.Row="0"
+        					FontSize="25" 
+        					Margin="5 3 5 0" HorizontalAlignment="Stretch" FontWeight="Light" FontFamily="Light" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Top" 
+        					  TextWrapping="Wrap"  TextTrimming="WordEllipsis" MaxHeight="100"
+                                       >
+                         <Run FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{StaticResource NameManga}"></Run><Run Text=" "/><Run Text="{Binding NameManga}"/>
+                    </TextBlock>
+                    <!--End-->
+                    <!--{Binding DateTimeCreate}-->
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2"  Margin="5"
+        					FontSize="18" 
+        					HorizontalAlignment="Left" FontWeight="Light" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Center" TextTrimming="WordEllipsis"
+        					>
+                        <Run FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{StaticResource Clock}"></Run><Run Text=" "/><Run Text="{Binding DateTimeCreate}"/>
+                    </TextBlock>
+                    <!--End-->
+                    <!--Sevice-->
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Margin="5"
+        					FontSize="18" 
+        					HorizontalAlignment="Left" FontWeight="Light" Foreground="{StaticResource ColorGridHeader}" VerticalAlignment="Center" TextTrimming="WordEllipsis"
+        					>
+                        <Run FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{StaticResource Computer}"></Run><Run Text=" "/><Run Text="{Binding Sever}"/>
+                    </TextBlock>
+                    <!--End-->
+
+                </Grid>
+            </Grid>
+            <Grid  Background="Transparent" Width="54" HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0 10 0 0">
+                <uc:Mdl2 Grid.Column="2" Tap="btnOption_Tap" Foreground="{StaticResource ForegroundItem}" HorizontalAlignment="Center" Width="35"  Height="35" VerticalAlignment="Top" 
+                       IconSize="25" Icon="{StaticResource ChevronDown}" />
+            </Grid>
+            
+            <Border x:Name="borderOption" Background="{StaticResource BackgroundItem}" Visibility="Collapsed" Grid.ColumnSpan="2" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="54 54 12 12" BorderThickness="1" CornerRadius="0" BorderBrush="{StaticResource ForegroundItem}">
+                <StackPanel>
+                    <!--Pin to start-->
+                    <uc:Mdl2 x:Name="btnPinOrUnPin" Foreground="{StaticResource ForegroundItem}"  Margin="5" HorizontalAlignment="Stretch"   Height="30" VerticalAlignment="Center" FontSizeTitle="20" 
+                       IconSize="20" Icon="{StaticResource Pin}" Text="Pin to start" TapMdl2="btnPinOrUnPin_Tap"/>
+                    <!--end-->
+                    <!--Pin to start-->
+                    <uc:Mdl2 x:Name="btnNotication" Foreground="{StaticResource ForegroundItem}"  Margin="5" HorizontalAlignment="Stretch"   Height="30" VerticalAlignment="Center" FontSizeTitle="20" 
+                       IconSize="20" Icon="{StaticResource BellOutline}" Text="Tắt thông báo chap" TapMdl2="btnNoticaiton_Tap"/>
+                    <!--end-->
+                    <!--Delete-->
+                    <uc:Mdl2 x:Name="btnDelete" Foreground="{StaticResource ForegroundItem}"  Margin="5" HorizontalAlignment="Stretch"   Height="30" VerticalAlignment="Center" FontSizeTitle="20" 
+                       IconSize="20" Icon="{StaticResource Delete}" Text="Xóa khỏi danh sách" TapMdl2="btnDelete_Tap"/>
+                    <!--End-->
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

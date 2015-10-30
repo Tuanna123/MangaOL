@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MangaOL.UserControls.UcImageData"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Name="local"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot">
+        <Image x:Name="imageContent" HorizontalAlignment="Center" Source="{Binding ElementName=local,Path=UriImage}" VerticalAlignment="Stretch" ImageOpened="imageContent_Onpened"  Opacity="0" ImageFailed="imageContent_ImageFailed" Stretch="{Binding ElementName=local,Path=StretchImage}" Margin="0,0,0,0">
+        </Image>
+    </Grid>
+</UserControl>

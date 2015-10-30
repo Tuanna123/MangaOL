@@ -1,0 +1,29 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:converter="clr-namespace:MangaOL.Converter"
+    >
+    <!--Biến PramaConvert-->
+    <system:String x:Key="DownloadInView">DownloadInView</system:String>
+    <system:String x:Key="BookmaskChaper">BookmaskChaper</system:String>
+    <system:String x:Key="Notication">Notication</system:String>
+    <system:String x:Key="FavoriteManga">FavoriteManga</system:String>
+    <system:String x:Key="Reading">Reading</system:String>
+    <!--End-->
+    <converter:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
+    <converter:BoolToAccentColor x:Key="BoolToAccentColor"/>
+    <converter:ConverterCheckRadioSever x:Key="ConverterCheckRadioSever"/>
+    <converter:ConvertCountListToVisibility x:Key="ConvertCountListToVisibility"/>
+    <converter:ConverterSelectIndexToForground x:Key="ConverterSelectIndexToForground"/>
+    <converter:ConverterIndexPivotToEnbale x:Key="ConverterIndexPivotToEnbale"/>
+    <converter:ConverterBoolToAccentChaper x:Key="ConverterBoolToAccentChaper"/>
+    <converter:ConverterBoolToVerticalScrollBarVisibility x:Key="ConverterBoolToVerticalScrollBarVisibility"/>
+    <converter:ConverterItemsCountToString x:Key="ConverterItemsCountToString"/>
+    <converter:ConverterItemsCountToVisibility x:Key="ConverterItemsCountToVisibility"/>
+    <converter:ConverterSelectIndexToVisibility x:Key="ConverterSelectIndexToVisibility"/>
+    <converter:ConverterTitleMainPage x:Key="ConverterTitleMainPage"/>
+    <converter:ConverterItemSourceToVisibility x:Key="ConverterItemSourceToVisibility"/>
+    <converter:ConverterBoolToIcon x:Key="ConverterBoolToIcon"/>
+    <converter:ConverterBoolToText x:Key="ConverterBoolToText"/>
+</ResourceDictionary>

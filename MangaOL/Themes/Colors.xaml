@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <SolidColorBrush x:Key="ColorMenuItem" x:Name="ColorMenuItem" Color="#FFC1C1C1"/>
+    <SolidColorBrush x:Key="ItemAppBar" x:Name="ItemAppBar" Color="#FF646262"/>
+    <SolidColorBrush x:Key="BackgroundChaper" x:Name="BackgroundChaper" Color="#fff"/>
+    <SolidColorBrush x:Key="Main" x:Name="Main" Color="#e4e7ea"/>
+    <SolidColorBrush x:Key="ColorMenuItem2" x:Name="ColorMenuItem2" Color="Black"/>
+    <SolidColorBrush x:Key="ColorChaperNoRead" x:Name="ColorChaperNoRead" Color="Black"/>
+    <SolidColorBrush  x:Name="ColorGridHeader" Color="#FF39AAAA"/>
+    <SolidColorBrush x:Key="ColoGridPivotHeader" x:Name="ColoGridPivotHeader" Color="White"/>
+    <SolidColorBrush x:Key="ColorAppBar" x:Name="ColorAppBar" Color="Gray"/>
+    <SolidColorBrush x:Key="BackgroundItem" x:Name="BackgroundItem" Color="White"/>
+    <SolidColorBrush x:Key="ForegroundItem" x:Name="ForegroundItem" Color="#FF000000"/>
+</ResourceDictionary>

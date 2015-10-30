@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="MangaOL.UserControls.Mdl2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Name="uc"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="52" d:DesignWidth="52"
+             MouseEnter="uc_MouseEnter"
+             MouseLeave="uc_MouseLeave"
+             Tap="uc_Tap"
+             >
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  Width="{Binding Height,ElementName=uc}"/>
+        <Border Background="{Binding ElementName=uc,Path=Background}" CornerRadius="{Binding ElementName=grid,Path=CornerRadius}" Visibility="Visible" Grid.ColumnSpan="2"/>
+        <Border x:Name="grid" Grid.RowSpan="2"  Background="{StaticResource PhoneBackgroundBrush}" Opacity="0.3" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="txtIcon" Foreground="{Binding ElementName=uc,Path=Foreground}" 
+                   Text="{Binding Icon,ElementName=uc}" 
+                   FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" 
+                   FontSize="{Binding IconSize,ElementName=uc}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock x:Name="txtContentRight" FontSize="{Binding FontSizeTitle,ElementName=uc}" Text="{Binding Text,ElementName=uc}" Foreground="{Binding ElementName=uc,Path=Foreground}" FontWeight="Light" VerticalAlignment="Center" Grid.Column="1" />
+        <TextBlock x:Name="txtContentBotton" Grid.Row="1"  Grid.ColumnSpan="2" Visibility="Collapsed" FontSize="{Binding FontSizeTitle,ElementName=uc}" Text="{Binding Text,ElementName=uc}" Foreground="{Binding ElementName=uc,Path=Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid x:Name="gridIsEnabled" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+    </Grid>
+</UserControl>

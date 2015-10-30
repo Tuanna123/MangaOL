@@ -1,0 +1,6 @@
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Release\GetValueNode.dll
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Release\GetValueNode.pdb
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Release\HtmlAgilityPack-PCL.dll
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Release\HtmlAgilityPack-PCL.xml
+E:\WIPHONE\MangaOL\GetValueNode\obj\x86\Release\GetValueNode.dll
+E:\WIPHONE\MangaOL\GetValueNode\obj\x86\Release\GetValueNode.pdb

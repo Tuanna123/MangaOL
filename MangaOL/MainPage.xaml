@@ -1,0 +1,571 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="MangaOL.MainPage"
+    x:Name="local"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:uc="clr-namespace:MangaOL.UserControls"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" shell:SystemTray.Opacity="0.01" shell:SystemTray.ForegroundColor="White">
+    <phone:PhoneApplicationPage.Resources>
+        <Storyboard x:Name="HeaderPivotMove">
+            <DoubleAnimation Duration="0:0:0.2" To="{x:Null}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="border" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <ExponentialEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="closeSidePanel">
+            <DoubleAnimation Duration="0:0:0.2" To="-300" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="gridSide" d:IsOptimized="True"/>
+        </Storyboard>
+        <Storyboard x:Name="openSidePanel">
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="gridSide" d:IsOptimized="True"/>
+        </Storyboard>
+        <DataTemplate x:Key="MenuItemTemplate">
+            <Grid Tap="MenuItem_Tap">
+                <Border Visibility="{Binding IsSelected,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{StaticResource ColorGridHeader}" BorderThickness="4,0,0,0"/>
+                <uc:Mdl2 HorizontalAlignment="Stretch" Foreground="{Binding IsSelected,Converter={StaticResource BoolToAccentColor}}" 
+                               Text="{Binding Title}" FontSize="20"
+                               Icon="{Binding Icon}"
+                               IconSize="24"
+                               Height="54" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Name="myCell3">
+            <Border  BorderBrush="{StaticResource BackgroundItem}" Margin="12 5 0 5" Width="143"
+        		BorderThickness="2" Height="280">
+                <uc:TemplateHomeVez TapGirdItem="TempalteHomeVez_Tap" IsFavorite="{Binding IsFavorite,Mode=TwoWay}"/>
+            </Border>
+
+        </DataTemplate>
+        <DataTemplate x:Name="myCell3Hoz">
+            <uc:TemplateHomeHoz TapGirdItem="TemplateHomeHoz_Tap" IsFavorite="{Binding IsFavorite,Mode=TwoWay}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="NewReadTemplate">
+            <uc:TemplateNewRead TapGirdItem="GridItemMangaNewRead_Tap" TapDelete="btnDeleteNEwRead_Tap" IsFavorite="{Binding IsFavorite,Mode=TwoWay}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="FavoriteMangaTemplate">
+            <uc:TemplateFavorite TapGirdItem="TemplateFavorite_Tap" TapNotication="btnNotication_Tap" IsNoticaiton="{Binding IsNotication}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="ChaperBookmaskTemplate" >
+            <uc:TemplateChapBookMask TapGridItem="TemplateChappBookMask_Tap"/>
+        </DataTemplate>
+        <DataTemplate x:Name="DownloadTemplate">
+            <uc:UcDownload Name="Container" Margin="12 3 12 3" Height="190"  NameForder="{Binding NameForder}"
+                             GridOffTap="UcDownload_GridOffTap" GridDeleteTap="UcDownload_GridDeleteTap"
+                           >
+                <uc:UcDownload.Resources>
+                        <Storyboard x:Name="itemSb">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Container">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.01"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                </uc:UcDownload.Resources>
+            </uc:UcDownload>
+        </DataTemplate>
+        <Storyboard x:Name="ShowGridSearch">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="mdl2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="mdl2">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="gridSearch">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="btnMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="btnMenu">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="gridSearch">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="HideGridSearch">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="mdl2">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="mdl2">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="gridSearch">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="btnMenu">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="btnMenu">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="gridSearch">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="ShowAppBar">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="HideAppBar">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="grid">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="grid">
+                <SplineDoubleKeyFrame KeyTime="0" Value="200"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="Hide_SettingSearch">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackSearch">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackSearch">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="Show_SettingSearch">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackSearch">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackSearch">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </phone:PhoneApplicationPage.Resources>
+    <!--LayoutRoot is the root grid where all page bcontent is placed-->
+    <Grid x:Name="LayoutRoot" Background="{StaticResource Main}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="649*"/>
+            <RowDefinition Height="37*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="gridHeader" Height="82"  Background="{StaticResource ColorGridHeader}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="47"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="textBlock"  Grid.Column="1" Text="{Binding  ElementName=pivotMain,Path=SelectedIndex,Converter={StaticResource ConverterTitleMainPage}}" FontFamily="Light" FontWeight="Light" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12 0 0 7" Foreground="White"/>
+
+            <uc:Mdl2 x:Name="mdl2" Grid.Column="2" Foreground="White" TapMdl2="Search_Tap" HorizontalAlignment="Right" Width="50"  Height="50" VerticalAlignment="Bottom" 
+                       IconSize="22" Icon="{StaticResource Search}"/>
+            <Grid Visibility="Collapsed" x:Name="gridSearch" Grid.ColumnSpan="3" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Background="White" Foreground="Black"  Height="70" KeyDown="txtKeyWord_KeyDown" TextChanged="txtKeyWord_Changed" x:Name="txtKeyWord" FontFamily="Light" FontWeight="Light" InputScope="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <uc:Mdl2  Foreground="Black" Tap="Remove_Tap" HorizontalAlignment="Right" Width="40"  Height="40" VerticalAlignment="Center" Margin="0 0 15 0" 
+                       IconSize="22" Icon="{StaticResource Clear}"/>
+                <uc:Mdl2 Grid.Column="1" Foreground="White" TapMdl2="SettingSearch_Tap" IsEnabledMdl2="{Binding ElementName=btnRefresh,Path=IsEnabledMdl2}" HorizontalAlignment="Right" Width="40"  Height="40" VerticalAlignment="Center" Margin="0 0 15 0" 
+                       IconSize="22" Icon="{StaticResource DotsHorizontal}"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <Grid x:Name="gridMain" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <phone:Pivot x:Name="pivotMain" Grid.Row="1" SelectionChanged="pivotMain_SelectionChanged">
+                    <phone:PivotItem Margin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <phone:LongListSelector   x:Name="LvMain" Grid.Row="1"  LayoutMode="Grid" GridCellSize="155,290" 
+								ItemsSource="{Binding Mangas}" ItemTemplate="{StaticResource myCell3}" 
+								Background="Transparent" ItemRealized="LvMain_ItemRealized" 
+								HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                        >
+                            </phone:LongListSelector>
+                            <StackPanel x:Name="StackPanelThongBaoMain"  Grid.Row="1" Visibility="{Binding Mangas.Count,Converter={StaticResource ConverterItemSourceToVisibility},FallbackValue=Collapsed}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" >
+                                <TextBlock x:Name="txtTieuDe" Text="KHÔNG CÓ DỮ LIỆU." FontFamily="Light" FontWeight="Light" FontSize="30" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock x:Name="txtContent" Text="" FontFamily="Light" FontWeight="Light"  FontSize="20" Foreground="#888" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </phone:PivotItem>
+                    <phone:PivotItem Margin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Visibility="{Binding MangasH.Count,Converter={StaticResource ConvertCountListToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" >
+                                <TextBlock Text="CHƯA CÓ TRUYỆN MỚI ĐỌC" FontFamily="Light" FontWeight="Light" FontSize="30" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock  Text="Ứng dụng sẽ lưu lại các truyện bạn đã đọc và truyện mới đọc sẽ lên đầu tiên, bạn cũng có thể xóa." FontFamily="Light" FontWeight="Light"  FontSize="20" Foreground="#888" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <ListBox x:Name="lb" ItemTemplate="{StaticResource NewReadTemplate}" ItemsSource="{Binding MangasH}" ItemContainerStyle="{StaticResource StyleListBoxItemContainer}" >
+                            </ListBox>
+                            <Grid Grid.Row="2" x:Name="ads4" MaxHeight="70"/>
+                        </Grid>
+
+                    </phone:PivotItem>
+                    <phone:PivotItem Margin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Visibility="{Binding MangaFavorite.Count,Converter={StaticResource ConvertCountListToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                                <TextBlock Text="CHƯA CÓ TRUYỆN YÊU THÍCH" FontFamily="Light" FontWeight="Light" FontSize="30" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock   FontFamily="Light" FontWeight="Light"  FontSize="20" Foreground="#888" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Run Text="Hãy chọn "></Run><Run Foreground="HotPink" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{StaticResource HeartOutline}"></Run><Run Text=" ứng dụng sẽ đánh dấu truyện bạn thích đọc nhất vào đây."> </Run>
+                                </TextBlock>
+                            </StackPanel>
+                            <ListBox x:Name="lbFavoriteManga"  ItemTemplate="{StaticResource FavoriteMangaTemplate}" ItemsSource="{Binding MangaFavorite}" ItemContainerStyle="{StaticResource StyleListBoxItemContainer}" >
+                            </ListBox>
+                            <Grid x:Name="ads1" Grid.Row="2" MaxHeight="70"/>
+                        </Grid>
+                    </phone:PivotItem>
+                    <phone:PivotItem Margin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel  Visibility="{Binding ChaperBookmask.Count,Converter={StaticResource ConvertCountListToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" >
+                                <TextBlock Text="CHƯA CÓ CHAPER YÊU THÍCH" FontFamily="Light" FontWeight="Light" FontSize="30" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock   FontFamily="Light" FontWeight="Light"  FontSize="20" Foreground="#888" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Run Text="Hãy chọn "></Run><Run Foreground="{StaticResource ForegroundItem}" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{StaticResource FileOutline}"></Run><Run Text=" ứng dụng sẽ đánh dấu chaper bạn thích đọc, đang đọc vào đây."> </Run>
+                                </TextBlock>
+                            </StackPanel>
+                            <ListBox x:Name="lbChaperBookmask"  ItemTemplate="{StaticResource ChaperBookmaskTemplate}" ItemsSource="{Binding ChaperBookmask}" ItemContainerStyle="{StaticResource StyleListBoxItemContainer}" >
+                            </ListBox>
+                            <Grid x:Name="ads2" Grid.Row="2" MaxHeight="70"/>
+                        </Grid>
+                    </phone:PivotItem >
+                    <phone:PivotItem Margin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <!--Thông báo-->
+                            <StackPanel   Visibility="{Binding ElementName=lbDownload, Path=Items.Count,Converter={StaticResource ConvertCountListToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                                <TextBlock Text="DANH SÁCH TRỐNG" FontFamily="Light" FontWeight="Light" FontSize="30" Foreground="{StaticResource ForegroundItem}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock  FontFamily="Light" FontWeight="Light"  FontSize="20" Foreground="#888" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                   <Run Text="Hãy chọn "/> <Run Foreground="{StaticResource ForegroundItem}" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Text="{StaticResource Download}"></Run> <Run Text=" để download chaper về đọc offline."/>
+                                </TextBlock>
+                            </StackPanel>
+                            <!--End thông báo-->
+                            <ListBox x:Name="lbDownload"  ItemTemplate="{StaticResource DownloadTemplate}" ItemsSource="{Binding Downloads}" ItemContainerStyle="{StaticResource StyleListBoxItemContainer}" >
+                            </ListBox>
+                            <Grid x:Name="ads3" Grid.Row="2" MaxHeight="70"/>
+                        </Grid>
+                    </phone:PivotItem>
+                </phone:Pivot>
+                <Grid x:Name="gridHeaderPivot" Background="{StaticResource ColoGridPivotHeader}" Margin="0 0 0 0" Height="54">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="border" Width="{Binding ElementName=main,Path=GridHeaderWidth}" BorderThickness="0 0 0 2" BorderBrush="{Binding ElementName=gridHeader,Path=Background}" RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <CompositeTransform/>
+                        </Border.RenderTransform>
+                        <Border.Projection>
+                            <PlaneProjection/>
+                        </Border.Projection>
+
+                    </Border>
+                    <Grid  Grid.Column="0"  Background="Transparent"  Tap="GridHeaderPivot_Tap">
+                        <!--Notication -->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=0,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="17"  Visibility="{Binding Mangas.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToVisibility}}" Text="{Binding Mangas.Count,Mode=TwoWay,ConverterParameter=Notication,Converter={StaticResource ConverterItemsCountToString}}" FontFamily="Light" FontWeight="Light" VerticalAlignment="Bottom" Margin="67 5 0 0" HorizontalAlignment="Left"/>
+                        <!--End notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=0,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="30" 
+						Text="{StaticResource Library}" 
+						FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" 
+						HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="0 -2 0 0" Background="Transparent"  Tap="GridHeaderPivot_Tap">
+                        <!--Notication -->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=1,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="17"  Visibility="{Binding MangasH.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToVisibility}}" Text="{Binding MangasH.Count,Mode=TwoWay,ConverterParameter=Notication,Converter={StaticResource ConverterItemsCountToString}}" FontFamily="Light" FontWeight="Light" VerticalAlignment="Bottom" Margin="67 5 0 0" HorizontalAlignment="Left"/>
+                        <!--End notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=1,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="30" 
+						Text="{StaticResource Clock}" 
+						FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" 
+						HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="2"  Background="Transparent"  Tap="GridHeaderPivot_Tap">
+                        <!--Notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=2,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="17" Visibility="{Binding MangaFavorite.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToVisibility}}" Text="{Binding MangaFavorite.Count,Mode=TwoWay,ConverterParameter=Notication,Converter={StaticResource ConverterItemsCountToString}}" FontFamily="Light" FontWeight="Light" VerticalAlignment="Bottom" Margin="67 5 0 0" HorizontalAlignment="Left"/>
+                        <!--End notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=2,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="30" 
+						Text="{StaticResource HeartOutline}" 
+						FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" 
+						HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="3"  Background="Transparent"  Tap="GridHeaderPivot_Tap">
+                        <!--Notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=3,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="17"  Visibility="{Binding ChaperBookmask.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToVisibility}}" Text="{Binding ChaperBookmask.Count,Mode=TwoWay,ConverterParameter=Notication,Converter={StaticResource ConverterItemsCountToString}}" FontFamily="Light" FontWeight="Light" VerticalAlignment="Bottom" Margin="67 5 0 0" HorizontalAlignment="Left"/>
+                        <!--End notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=3,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="30" 
+						Text="{StaticResource FileOutline}" 
+						FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" 
+						HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="4"  Background="Transparent"  Tap="GridHeaderPivot_Tap">
+
+                        <!--<Border CornerRadius="60" Visibility="{Binding CountDownload.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToVisibility}}"  Background="Orange" Height="25" Width="25" Margin="0 5 12 0" VerticalAlignment="Top" HorizontalAlignment="Right" >
+                            <TextBlock Foreground="White" FontSize="16" Text="{Binding CountDownload.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToString}}" FontFamily="Light" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>-->
+                        <!--Notication-->
+                        <TextBlock Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=4,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="17"  Visibility="{Binding Downloads.Count,Mode=TwoWay,Converter={StaticResource ConverterItemsCountToVisibility}}" Text="{Binding Downloads.Count,Mode=TwoWay,ConverterParameter=Notication,Converter={StaticResource ConverterItemsCountToString}}" FontFamily="Light" FontWeight="Light" VerticalAlignment="Bottom" Margin="67 5 0 0" HorizontalAlignment="Left"/>
+                        <!--End notication-->
+                        <TextBlock  Foreground="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=4,Converter={StaticResource ConverterSelectIndexToForground}}" FontSize="30" 
+						Text="{StaticResource Download}" 
+						FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" 
+						HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="33,12" />
+                    </Grid>
+
+                </Grid>
+                <StackPanel x:Name="stackSearch" Grid.RowSpan="2" Height="150" Visibility="Collapsed" VerticalAlignment="Top" Background="{StaticResource Main}">
+                    <RadioButton x:Name="radSearchOnline" IsChecked="true"  Content="Tìm kiếm online"  Foreground="{StaticResource ItemAppBar}" BorderBrush="Black" Checked="CheckBox_Checked" FontFamily="Light" FontWeight="Light" Unchecked="CheckBox_Unchecked" Style="{StaticResource RadioButtonStyle1}">
+                    </RadioButton>
+                    <RadioButton x:Name="radSearchOffline" IsChecked="false"  Content="Tìm kiếm trong trang"  Foreground="{StaticResource ItemAppBar}" BorderBrush="Black"  FontFamily="Light" FontWeight="Light" Style="{StaticResource RadioButtonStyle1}">
+                    </RadioButton>
+                </StackPanel>
+                <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="{StaticResource ColorAppBar}">
+                    <Grid x:Name="gridAppBar">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <uc:Mdl2 x:Name="btnDeleteAll" IsEnabledMdl2="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=0,Converter={StaticResource ConverterIndexPivotToEnbale}}" Grid.Column="0" TapMdl2="btnDeleteAll_Tap" IsEnabled="True" Foreground="{StaticResource ItemAppBar}"  HorizontalAlignment="Center" Width="54"  Height="54" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource Delete}"/>
+                        <uc:Mdl2 x:Name="btnTemplateLongListMain" Grid.Column="3" Visibility="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=0,Converter={StaticResource ConverterSelectIndexToVisibility}}" TapMdl2="btnTemplateLongListMian_Tap" Foreground="{StaticResource ItemAppBar}"  HorizontalAlignment="Center" Width="54"  Height="54" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource List}" />
+                        <uc:Mdl2 x:Name="btnRefresh" Grid.Column="4" IsEnabledMdl2="{Binding ElementName=pivotMain,Path=SelectedIndex,ConverterParameter=1|2|3|4,Converter={StaticResource ConverterIndexPivotToEnbale}}" TapMdl2="btnReset_Tap" Foreground="{StaticResource ItemAppBar}"  HorizontalAlignment="Center" Width="54"  Height="54" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource Refresh}" />
+                        <uc:Mdl2 x:Name="btnMail" Grid.Column="5" TapMdl2="Mail_Tap" Foreground="{StaticResource ItemAppBar}"  HorizontalAlignment="Center" Width="54"  Height="54" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource EmailForward}" BorderBrush="Black"  />
+                        <uc:Mdl2 x:Name="btnHozt" Grid.Column="6" TapMdl2="BtnAppBar_Tap" Foreground="{StaticResource ItemAppBar}"  HorizontalAlignment="Center" Width="54"   Height="54" VerticalAlignment="Bottom" 
+                       IconSize="35" Icon="{StaticResource DotsHorizontal}"/>
+                    </Grid>
+                </Border>
+                <Grid x:Name="grid" Grid.Row="3" Height="200" Background="White" Visibility="Collapsed">
+                    <StackPanel Margin="12">
+                        <uc:Mdl2 Icon="{StaticResource StarOutline}" TapMdl2="RateApp_Tap"  IconSize="25" Height="50" Text="Đánh giá" Foreground="Black" FontSizeTitle="25"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Width="12"  VerticalAlignment="Stretch" HorizontalAlignment="Left" Background="Transparent"/>
+        </Grid>
+        <Grid  Background="Transparent" Grid.Row="1"  Width="12" HorizontalAlignment="Left" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted" Grid.RowSpan="2"/>
+        <Grid Grid.RowSpan="3" ManipulationCompleted="Grid_ManipulationCompleted" ManipulationDelta="Grid_ManipulationDelta" x:Name="gridSide" HorizontalAlignment="Left" Width="300"  Background="{Binding ElementName=gridHeader,Path=Background}" RenderTransformOrigin="0.5,0.5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="82"/>
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateX="-300"/>
+            </Grid.RenderTransform>
+            <Grid Grid.Row="1" Background="{StaticResource Main}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                    <RowDefinition Height="54"/>
+                </Grid.RowDefinitions>
+                <Border  Height="{Binding ElementName=gridHeaderPivot,Path=Height}" BorderBrush="Gray" BorderThickness="0 0 0 1">
+                    <uc:Mdl2 x:Name="txtSever" Grid.Column="0" TapMdl2="Sever_Tap" Foreground="{Binding ElementName=gridHeader,Path=Background}"  HorizontalAlignment="Stretch"   Height="50" VerticalAlignment="Bottom" FontSizeTitle="25" 
+                       IconSize="25" FontSize="25" Icon="{StaticResource Computer}" Text="truyentranh8.net"/>
+                </Border>
+                <ListBox x:Name="lbItem" Background="Transparent" ItemContainerStyle="{StaticResource StyleListBoxItemContainer}" SelectedItem="{Binding SelectedMenuItem,Mode=TwoWay}"  ItemsSource="{Binding Menu}" ItemTemplate="{StaticResource MenuItemTemplate}" BorderThickness="0"  Grid.Row="1" />
+                <Border Grid.Row="2"  BorderBrush="{StaticResource ColorAppBar}" BorderThickness="0 1 0 0">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="54"/>
+                            <ColumnDefinition Width="54"/>
+                        </Grid.ColumnDefinitions>
+                        <uc:Mdl2 Grid.Column="1" TapMdl2="Info_Tap" Foreground="{StaticResource ItemAppBar}"  HorizontalAlignment="Center" Width="54"  Height="54" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource Info}"/>
+                        <uc:Mdl2 Grid.Column="2" TapMdl2="Seting_Tap" Foreground="{StaticResource ItemAppBar}" HorizontalAlignment="Center" Width="54"  Height="54" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource Setting}"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+
+
+        <uc:Mdl2 x:Name="btnMenu" TapMdl2="Menu_Tap"  HorizontalAlignment="Left" Width="50"  Height="50" VerticalAlignment="Bottom" 
+                       IconSize="30" Icon="{StaticResource Menu}" Foreground="White" Grid.Row="0"/>
+        <Grid Grid.RowSpan="3"  Visibility="{Binding IsBusy, Converter={StaticResource BoolVisibilityConverter}}" d:IsHidden="True">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.3" />
+            </Grid.Background>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="{Binding BusyText}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Light" FontWeight="Light" FontSize="20"/>
+                <!--d:IsHidden="True"-->
+                <ProgressBar x:Name="prLoading" Foreground="White"  Margin="12 0 12 0" 
+				IsHitTestVisible="True" IsIndeterminate="True" Height="20"  VerticalAlignment="Center" Background="Transparent" BorderThickness="0"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

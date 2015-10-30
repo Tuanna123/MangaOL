@@ -1,0 +1,17 @@
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\MangaCore.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\MangaCore.pdb
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\GetValueNode.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\HtmlAgilityPack-PCL.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\Newtonsoft.Json.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\Sqlite.winmd
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\System.Net.Http.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\System.Net.Http.Extensions.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\System.Net.Http.Primitives.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\GetValueNode.pdb
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\Sqlite.dll
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\System.Net.Http.xml
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\System.Net.Http.Extensions.xml
+E:\WIPHONE\MangaOL\MangaCore\Bin\x86\Release\System.Net.Http.Primitives.xml
+E:\WIPHONE\MangaOL\MangaCore\obj\x86\Release\MangaCore.csprojResolveAssemblyReference.cache
+E:\WIPHONE\MangaOL\MangaCore\obj\x86\Release\MangaCore.dll
+E:\WIPHONE\MangaOL\MangaCore\obj\x86\Release\MangaCore.pdb

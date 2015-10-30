@@ -1,0 +1,21 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="MangaOL" EntryPointType="MangaOL.App" RuntimeVersion="4.7.50308.0">
+  <Deployment.Parts>
+    <AssemblyPart x:Name="MangaOL" Source="MangaOL.dll" />
+    <AssemblyPart x:Name="GoogleAds" Source="GoogleAds.dll" />
+    <AssemblyPart x:Name="GoogleAnalytics.Core" Source="GoogleAnalytics.Core.dll" />
+    <AssemblyPart x:Name="GoogleAnalytics" Source="GoogleAnalytics.dll" />
+    <AssemblyPart x:Name="MangaCore" Source="MangaCore.dll" />
+    <AssemblyPart x:Name="Microsoft.Phone.Controls.Toolkit" Source="Microsoft.Phone.Controls.Toolkit.dll" />
+    <AssemblyPart x:Name="ScheduledTaskAgentMangaOL" Source="ScheduledTaskAgentMangaOL.dll" />
+    <AssemblyPart x:Name="Telerik.Windows.Controls.Primitives" Source="Telerik.Windows.Controls.Primitives.dll" />
+    <AssemblyPart x:Name="Telerik.Windows.Core" Source="Telerik.Windows.Core.dll" />
+    <AssemblyPart x:Name="System.Net.Http" Source="System.Net.Http.dll" />
+    <AssemblyPart x:Name="Newtonsoft.Json" Source="Newtonsoft.Json.dll" />
+    <AssemblyPart x:Name="HtmlAgilityPack-PCL" Source="HtmlAgilityPack-PCL.dll" />
+    <AssemblyPart x:Name="GetValueNode" Source="GetValueNode.dll" />
+    <AssemblyPart x:Name="System.Net.Http.Primitives" Source="System.Net.Http.Primitives.dll" />
+    <AssemblyPart x:Name="System.Windows.Interactivity" Source="System.Windows.Interactivity.dll" />
+    <AssemblyPart x:Name="Sqlite" Source="Sqlite.dll" />
+    <AssemblyPart Source="vi/MangaOL.resources.dll" />
+  </Deployment.Parts>
+</Deployment>

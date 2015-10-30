@@ -1,0 +1,13 @@
+F:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\GetValueNode.dll
+F:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\GetValueNode.pdb
+F:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\HtmlAgilityPack-PCL.dll
+F:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\HtmlAgilityPack-PCL.xml
+F:\WIPHONE\MangaOL\GetValueNode\obj\x86\Debug\GetValueNode.dll
+F:\WIPHONE\MangaOL\GetValueNode\obj\x86\Debug\GetValueNode.pdb
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\GetValueNode.dll
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\GetValueNode.pdb
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\HtmlAgilityPack-PCL.dll
+E:\WIPHONE\MangaOL\GetValueNode\Bin\x86\Debug\HtmlAgilityPack-PCL.xml
+E:\WIPHONE\MangaOL\GetValueNode\obj\x86\Debug\GetValueNode.csprojResolveAssemblyReference.cache
+E:\WIPHONE\MangaOL\GetValueNode\obj\x86\Debug\GetValueNode.dll
+E:\WIPHONE\MangaOL\GetValueNode\obj\x86\Debug\GetValueNode.pdb
